@@ -28,6 +28,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def search
+    @user = User.find(params[:user_id])
+    @books = @user.books
+
+
+    create_at = params[:created_at]
+    @search_book = @books.where(['created_at LIKE ? ', "#{create_at}%"]).count
+
+  end
+
   private
 
   def user_params
