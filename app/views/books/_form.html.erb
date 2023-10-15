@@ -10,7 +10,9 @@
 
 
 
-<% if book.id.nil? %>
+
+     
+     <% if book.id.nil? %>
     <div class="form-group" id="star">
       <%= f.label :star %>
       <%= f.hidden_field :star, id: :review_star, class: 'form-control' %>
@@ -32,6 +34,10 @@
       });
     </script>
      <% end %>
+  <div class="form-group">
+    <%= f.label :Tag %>
+    <%= f.text_field :tag, class: 'form-control book_tag' %>
+  </div>
 
 
 

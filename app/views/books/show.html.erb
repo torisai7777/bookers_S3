@@ -7,6 +7,7 @@
       <%= render 'form', book: Book.new %>
     </div>
     <div class='col-md-8 offset-md-1'>
+      <%= render 'layouts/tagform'%>
   		<h2>Book detail</h2>
   		<table class='table'>
   		  <tr>
@@ -23,29 +24,14 @@
           <td class="book-comments-counter">
             <%= render "book_comments/counter", book: @book %>
           </td>
+          <td><%= link_to @book.tag , search_path(word: @book.tag) %></td>
           <% if @book.user == current_user %>
-            <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
-            <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}" %></td>
+            <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %>
+                <%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}" %></td>
           <% end %>
           <td>
-           <div id="star_<%= @book.id %>"></div>
-           <script>
-             $(document).on('turbolinks:load', function() {
-                let elem = document.querySelector('#star_<%= @book.id %>');
-                if (elem == null) return;
-
-                  elem.innerHTML = "";
-                  let opt = {
-                    starOn: "<%= asset_path('star-on.png') %>",
-                    starOff: "<%= asset_path('star-off.png') %>",
-                    starHalf: "<%= asset_path('star-half.png') %>",
-                    score: "<%= @book.star %>",
-                    readOnly: true,
-                  };
-                  raty(elem, opt);
-                });
-              </script>
-              </td>
+           <%= render "books/static", book: @book %>
+          </td>
 
         </tr>
       </table>
